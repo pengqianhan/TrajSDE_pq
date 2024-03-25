@@ -324,7 +324,9 @@ def parse_return(y0, ys, extra_solver_state, extra, logqp):
             return ys
 
 class BaseSDESolver_private(base_solver.BaseSDESolver):
+    ### class BaseSDESolver(metaclass=better_abc.ABCMeta):
     def integrate(self, y0: Tensor, ts: Tensor, nus_mask: Tensors, extra0: Tensors) -> Tuple[Tensor, Tensors]:
+        ### add nus_mask compared to the class BaseSDESolver
         """Integrate along trajectory.
 
         Args:
@@ -377,7 +379,7 @@ class BaseSDESolver_private(base_solver.BaseSDESolver):
                         curr_t, curr_y, curr_extra = next_t, next_y, next_extra
                 else:
                     prev_t, prev_y = curr_t, curr_y
-                    curr_y, curr_extra, g_prod = self.step(curr_t, next_t, curr_y, nus_mask, curr_extra)
+                    curr_y, curr_extra, g_prod = self.step(curr_t, next_t, curr_y, nus_mask, curr_extra)### add nus_mask compared to the class BaseSDESolver
                     curr_t = next_t
             ys.append(interp.linear_interp(t0=prev_t, y0=prev_y, t1=curr_t, y1=curr_y, t=out_t))
 
@@ -475,6 +477,7 @@ class Euler_private(BaseSDESolver_private):
         super(Euler_private, self).__init__(sde=sde, **kwargs)
 
     def step(self, t0, t1, y0, nus_mask, extra0):
+        #### nus_mask 是和 torchsde 中的class Euler(base_solver.BaseSDESolver)不一样的地方
         del extra0
         dt = t1 - t0
         I_k = self.bm(t0, t1)
@@ -822,7 +825,7 @@ class ForwardSDE_private_all(BaseSDE):
 
     def _return_zero(self, t, y, v):  # noqa
         return 0.
-    
+
 
 def check_contract(sde, y0, ts, nus_mask, bm, method, adaptive, options, names, logqp):
     if names is None:
