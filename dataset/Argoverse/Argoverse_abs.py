@@ -27,8 +27,10 @@ import random
 
 import sys
 sys.path.append('/mnt/ssd2/frm_lightning_backup/')
+sys.path.append('/home/phan635/AI_ECG/github-open/TrajSDE_pq/')
+
 from models.utils.util import TemporalData
-from debug_util import *
+# from debug_util import *
 
 SPLIT_NAME = {'nuScenes': {'train': 'train', 'val': 'train_val', 'test': 'val', 'mini_train': 'mini_train', 'mini_val': 'mini_val'},
                 'Argoverse': {'train': 'train', 'val': 'val', 'test': 'test_obs', 'sample': 'forecasting_sample'}}
