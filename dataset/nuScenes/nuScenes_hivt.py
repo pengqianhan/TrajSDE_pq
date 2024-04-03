@@ -28,8 +28,9 @@ import random
 
 import sys
 sys.path.append('/mnt/ssd2/frm_lightning_backup/')
+sys.path.append('/home/phan635/AI_ECG/github-open/TrajSDE_pq/')
 from models.utils.util import TemporalData
-from debug_util import *
+# from debug_util import *
 
 PED_CLASS = {}
 VEH_CLASS = {}
