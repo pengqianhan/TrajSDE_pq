@@ -192,8 +192,9 @@ class LocalEncoderSDESepPara2(nn.Module):
 
         
         diffusions_in, diffusions_out = torch.chunk(diff_out,2,0)
-        in_labels = torch.full_like(diffusions_in, self.real_label)
-        out_labels = torch.full_like(diffusions_out, self.fake_label)
+        ### in_labels and out_labels is similar to SDE-Net
+        in_labels = torch.full_like(diffusions_in, self.real_label)##self.real_label = 0
+        out_labels = torch.full_like(diffusions_out, self.fake_label)##self.fake_label = 1
         
         edge_index, edge_attr = self.drop_edge(data['lane_actor_index'], data['lane_actor_vectors'])
         out = self.al_encoder(x=(lane_feat, out), edge_index=edge_index, edge_attr=edge_attr,
